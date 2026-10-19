@@ -13,29 +13,29 @@ public class Hood {
         configureMotors();
     }
 
-    private void configureMotors() {
-        final CurrentLimitsConfigs currentLimits =
+    final CurrentLimitsConfigs currentLimits =
         new CurrentLimitsConfigs()
             .withSupplyCurrentLimit(HoodConstants.kSupplyCurrentLimit)
             .withSupplyCurrentLimitEnable(HoodConstants.kSupplyLimitEnabled)
             .withStatorCurrentLimit(HoodConstants.kStatorCurrentLimit)
             .withStatorCurrentLimitEnable(HoodConstants.kStatorLimitEnabled);
 
-        final MotorOutputConfigs motorOutputs =
-            new MotorOutputConfigs()
-                .withInverted(HoodConstants.kInversion)
-                .withNeutralMode(HoodConstants.kNeutralMode);
+    final MotorOutputConfigs motorOutputs =
+        new MotorOutputConfigs()
+            .withInverted(HoodConstants.kInversion)
+            .withNeutralMode(HoodConstants.kNeutralMode);
 
-        final FeedbackConfigs feedback =
-            new FeedbackConfigs()
-                .withSensorToMechanismRatio(HoodConstants.kHoodGearRatio);
+    final FeedbackConfigs feedback =
+        new FeedbackConfigs()
+            .withSensorToMechanismRatio(HoodConstants.kHoodGearRatio);
 
-        final TalonFXConfiguration hoodMotorConfigurations =
-            new TalonFXConfiguration()
-                .withCurrentLimits(currentLimits)
-                .withMotorOutput(motorOutputs)
-                .withFeedback(feedback);
+    final TalonFXConfiguration hoodMotorConfigurations =
+        new TalonFXConfiguration()
+            .withCurrentLimits(currentLimits)
+            .withMotorOutput(motorOutputs)
+            .withFeedback(feedback);
 
+    private void configureMotors() {
         hoodMotor.getConfigurator().apply(hoodMotorConfigurations);
     }
 }

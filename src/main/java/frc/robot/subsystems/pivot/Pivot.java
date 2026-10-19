@@ -13,29 +13,29 @@ public class Pivot {
         configureMotors();
     }
 
-    private void configureMotors() {
-        final CurrentLimitsConfigs currentLimits =
+    final CurrentLimitsConfigs currentLimits =
         new CurrentLimitsConfigs()
             .withSupplyCurrentLimit(PivotConstants.kSupplyCurrentLimit)
             .withSupplyCurrentLimitEnable(PivotConstants.kSupplyLimitEnabled)
             .withStatorCurrentLimit(PivotConstants.kStatorCurrentLimit)
             .withStatorCurrentLimitEnable(PivotConstants.kStatorLimitEnabled);
 
-        final MotorOutputConfigs motorOutputs = 
-            new MotorOutputConfigs()
-                .withInverted(PivotConstants.kInversion)
-                .withNeutralMode(PivotConstants.kNeutralMode);
+    final MotorOutputConfigs motorOutputs = 
+        new MotorOutputConfigs()
+            .withInverted(PivotConstants.kInversion)
+            .withNeutralMode(PivotConstants.kNeutralMode);
 
-        final FeedbackConfigs feedback =
-            new FeedbackConfigs()
-                .withSensorToMechanismRatio(PivotConstants.kPivotGearRatio);
+    final FeedbackConfigs feedback =
+        new FeedbackConfigs()
+            .withSensorToMechanismRatio(PivotConstants.kPivotGearRatio);
         
-        final TalonFXConfiguration pivotMotorConfigurations =
-            new TalonFXConfiguration()
-                .withCurrentLimits(currentLimits)
-                .withMotorOutput(motorOutputs)
-                .withFeedback(feedback);
-
+    final TalonFXConfiguration pivotMotorConfigurations =
+        new TalonFXConfiguration()
+            .withCurrentLimits(currentLimits)
+            .withMotorOutput(motorOutputs)
+            .withFeedback(feedback);
+    
+    private void configureMotors() {
         pivotMotor.getConfigurator().apply(pivotMotorConfigurations);
     }
 }
