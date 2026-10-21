@@ -7,7 +7,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 public class Elevator {
-    TalonFX elevatorMotor = new TalonFX(ElevatorConstants.kElevatorMotorID);
+    TalonFX elevatorMotorLeft = new TalonFX(ElevatorConstants.kElevatorMotorLeftID);
+    TalonFX elevatorMotorRight = new TalonFX(ElevatorConstants.kElevatorMotorRightID);
 
     public Elevator() {
         configureMotors();
@@ -20,22 +21,34 @@ public class Elevator {
             .withStatorCurrentLimit(ElevatorConstants.kStatorCurrentLimit)
             .withStatorCurrentLimitEnable(ElevatorConstants.kStatorLimitEnabled);
                 
-    final MotorOutputConfigs motorOuputs =
+    final MotorOutputConfigs motorOuputsLeft =
         new MotorOutputConfigs()
-            .withInverted(ElevatorConstants.KInvertedValue)
+            .withInverted(ElevatorConstants.KInvertedValueLeft)
+            .withNeutralMode(ElevatorConstants.kNeutralMode);
+
+    final MotorOutputConfigs motorOuputsRight =
+        new MotorOutputConfigs()
+            .withInverted(ElevatorConstants.KInvertedValueRight)
             .withNeutralMode(ElevatorConstants.kNeutralMode);
 
     final FeedbackConfigs feedback =
         new FeedbackConfigs()
             .withSensorToMechanismRatio(ElevatorConstants.kElevatorGearRatio);
 
-    final TalonFXConfiguration elevatorMotorConfigurations =
+    final TalonFXConfiguration elevatorMotorLeftConfigurations =
         new TalonFXConfiguration()
             .withCurrentLimits(currentLimits)
-            .withMotorOutput(motorOuputs)
+            .withMotorOutput(motorOuputsLeft)
+            .withFeedback(feedback);
+
+    final TalonFXConfiguration elevatorMotorRightConfigurations =
+        new TalonFXConfiguration()
+            .withCurrentLimits(currentLimits)
+            .withMotorOutput(motorOuputsRight)
             .withFeedback(feedback);
     
     private void configureMotors() {
-        elevatorMotor.getConfigurator().apply(elevatorMotorConfigurations);
+        elevatorMotorLeft.getConfigurator().apply(elevatorMotorLeftConfigurations);
+        elevatorMotorRight.getConfigurator().apply(elevatorMotorRightConfigurations);
     }
 }

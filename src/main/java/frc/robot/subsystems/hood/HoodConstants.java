@@ -13,14 +13,17 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class HoodConstants {
-    public static final String kRobotName = "Walter";
+    // public static final String kRobotName = "Walter";
 
-    public static final Angle kFeedAngle = Degrees.of(15); // converts double to degrees
-    public static final double kFeedAngleDouble = kFeedAngle.in(Degrees); // converts degrees to double
-    public static final double kFeedAngleRadian = kFeedAngle.in(Radians); // converts degrees to double
-    public static final Angle kStartingAngle = Degrees.of(0); // converts double to degrees
+    // public static final Angle kFeedAngle = Degrees.of(15); // converts double to degrees
+    // public static final double kFeedAngleDouble = kFeedAngle.in(Degrees); // converts degrees to double
+    // public static final double kFeedAngleRadian = kFeedAngle.in(Radians); // converts degrees to double
+    // public static final Angle kStartingAngle = Degrees.of(0); // converts double to degrees
 
-    public static final Voltage kMaxVoltage = Volts.of(12); // converts double to volts
+    // public static final Voltage kMaxVoltage = Volts.of(12); // converts double to volts
+    public static final Angle kTargetAngle = Degrees.of(30);
+    public static final Angle kToleranceAngle = Degrees.of(1.5);
+
     public static final Current kMaxCurrent = Amps.of(40); // converts double to amps
 
     public static final Current kSupplyCurrentLimit = Amps.of(40);
