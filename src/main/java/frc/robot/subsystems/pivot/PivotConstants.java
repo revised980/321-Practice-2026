@@ -12,6 +12,9 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class PivotConstants {
+    public static final Angle kTargetAngle = Degrees.of(30);
+    public static final Angle kToleranceAngle = Degrees.of(1.5);
+
     public static final Current kMaxCurrent = Amps.of(40);
 
     public static final Current kStatorCurrentLimit = Amps.of(40);
