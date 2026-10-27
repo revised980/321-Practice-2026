@@ -12,6 +12,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -21,6 +22,12 @@ import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Hood {
+    private double kS = 0;
+    private double kG = 0;
+    private double kV = 0;
+      
+    private ArmFeedforward hoodFeedforward = new ArmFeedforward(kS, kG, kV);
+
     TalonFX hoodMotor = new TalonFX(HoodConstants.kHoodMotorID);    
 
     public Hood() {
@@ -53,16 +60,17 @@ public class Hood {
         hoodMotor.getConfigurator().apply(hoodMotorConfigurations);
     }
 
+    public double kP = 0;
+    public double kI = 0;
+    public double kD = 0;
+
     private TrapezoidProfile.Constraints hoodConstraints = 
         new TrapezoidProfile.Constraints(
             HoodConstants.kMaxVelocity.in(DegreesPerSecond), 
             HoodConstants.kMaxAcceleration.in(DegreesPerSecondPerSecond));
 
-    private ProfiledPIDController hoodController = new ProfiledPIDController(HoodConstants.kP, HoodConstants.kI, HoodConstants.kD, TrapezoidProfile.Constraints constraints);
-
-    public Angle currentAngle = Degrees.of(30);
-    public Angle targetAngle = Degrees.of(45);
-    private Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
+    private ProfiledPIDController hoodController =
+        new ProfiledPIDController(kP, kI, kD, hoodConstraints);
 
     @Logged(name = "hoodPitch")
     public Angle getAngle() {
@@ -86,6 +94,16 @@ public class Hood {
     public Current getCurrent() {
         Current statorCurrent = hoodMotor.getStatorCurrent().getValue();
         return statorCurrent;
+    }
+
+    // public Angle currentAngle = Degrees.of(30);
+    // public Angle targetAngle = Degrees.of(45);
+    // private Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
+
+    public void goToAngle(Angle targetAngle) {
+        Angle currentAngle = getAngle();
+        Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
+        hoodMotor.setVoltage(desiredVoltage.in(Volts));
     }
 
     // @Override

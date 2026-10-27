@@ -42,10 +42,6 @@ public class HoodConstants {
     public static final InvertedValue kInversion = InvertedValue.Clockwise_Positive;
     public static final NeutralModeValue kNeutralMode = NeutralModeValue.Brake; // when the motor is not spinning it will be locked at a stop
 
-    public static final double kP = 0;
-    public static final double kI = 0;
-    public static final double kD = 0;
-
     public static final AngularVelocity kMaxVelocity = DegreesPerSecond.of(0);
     public static final AngularAcceleration kMaxAcceleration = DegreesPerSecondPerSecond.of(0);
 }
