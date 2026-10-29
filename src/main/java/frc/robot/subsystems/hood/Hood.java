@@ -100,9 +100,17 @@ public class Hood {
     // public Angle targetAngle = Degrees.of(45);
     // private Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
 
+    // public void goToAngle(Angle targetAngle) {
+    //     Angle currentAngle = getAngle();
+    //     Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
+    //     hoodMotor.setVoltage(desiredVoltage.in(Volts));
+    // }
+
     public void goToAngle(Angle targetAngle) {
         Angle currentAngle = getAngle();
-        Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
+        Voltage calculatedPIDVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
+        Voltage calculatedFFVoltage = Volts.of(hoodFeedforward.calculate(targetAngle.in(Degrees), 0));
+        Voltage desiredVoltage = Volts.of(calculatedPIDVoltage.in(Volts) + calculatedFFVoltage.in(Volts));
         hoodMotor.setVoltage(desiredVoltage.in(Volts));
     }
 

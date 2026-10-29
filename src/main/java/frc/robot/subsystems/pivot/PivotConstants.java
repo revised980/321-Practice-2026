@@ -1,10 +1,14 @@
 package frc.robot.subsystems.pivot;
 
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.DegreesPerSecondPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 import static edu.wpi.first.units.Units.Amps;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularAcceleration;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.units.measure.Current;
 
@@ -28,4 +32,7 @@ public class PivotConstants {
 
     public static final InvertedValue kInversion = InvertedValue.Clockwise_Positive;
     public static final NeutralModeValue kNeutralMode = NeutralModeValue.Brake;
+
+    public static final AngularVelocity kMaxVelocity = DegreesPerSecond.of(0);
+    public static final AngularAcceleration kMaxAcceleration = DegreesPerSecondPerSecond.of(0);
 }
