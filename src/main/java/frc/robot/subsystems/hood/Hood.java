@@ -5,6 +5,8 @@ import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.DegreesPerSecondPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -20,8 +22,12 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Hood {
+public class Hood extends SubsystemBase{
+    private Angle targetAngle = HoodConstants.kStartingAngle;
+
     private double kS = 0;
     private double kG = 0;
     private double kV = 0;
@@ -72,6 +78,14 @@ public class Hood {
     private ProfiledPIDController hoodController =
         new ProfiledPIDController(kP, kI, kD, hoodConstraints);
 
+    public void setVoltage(Voltage desiredVoltage) {
+        hoodMotor.setVoltage(desiredVoltage.in(Volts));
+    }
+
+    public void setTargetAngle(Supplier<Angle> angle) {
+        this.angle = targetAngle;
+    }
+
     @Logged(name = "hoodPitch")
     public Angle getAngle() {
         Angle angle = hoodMotor.getPosition().getValue();
@@ -95,6 +109,11 @@ public class Hood {
         Current statorCurrent = hoodMotor.getStatorCurrent().getValue();
         return statorCurrent;
     }
+
+    // @Logged(name = "atHomeAngle")
+    // public boolean atHomeAngle() {
+        
+    // }
 
     // public Angle currentAngle = Degrees.of(30);
     // public Angle targetAngle = Degrees.of(45);

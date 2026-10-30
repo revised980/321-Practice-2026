@@ -22,9 +22,10 @@ public class HoodConstants {
     // public static final Angle kFeedAngle = Degrees.of(15); // converts double to degrees
     // public static final double kFeedAngleDouble = kFeedAngle.in(Degrees); // converts degrees to double
     // public static final double kFeedAngleRadian = kFeedAngle.in(Radians); // converts degrees to double
-    // public static final Angle kStartingAngle = Degrees.of(0); // converts double to degrees
 
     // public static final Voltage kMaxVoltage = Volts.of(12); // converts double to volts
+
+    public static final Angle kStartingAngle = Degrees.of(0); // converts double to degrees
     public static final Angle kTargetAngle = Degrees.of(30);
     public static final Angle kToleranceAngle = Degrees.of(1.5);
 
@@ -44,4 +45,6 @@ public class HoodConstants {
 
     public static final AngularVelocity kMaxVelocity = DegreesPerSecond.of(0);
     public static final AngularAcceleration kMaxAcceleration = DegreesPerSecondPerSecond.of(0);
+
+    public static final Voltage kHomingVoltage = Volts.of(0);
 }
