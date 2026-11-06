@@ -16,7 +16,7 @@ public class GoToAngle extends Command{
 
     Supplier<Angle> targetAngle;
 
-    public void homeHood(Hood hood, Supplier<Angle> targetAngle) {
+    public GoToAngle(Hood hood, Supplier<Angle> targetAngle) {
         this.hood = hood;
         this.targetAngle = targetAngle;
         addRequirements(hood);
@@ -24,18 +24,19 @@ public class GoToAngle extends Command{
     
     @Override
     public void initialize() {
-        hood.setTargetAngle(targetAngle);
+
     }
 
     @Override
     public void execute() {
-        hood.setVoltage(HoodConstants.kHomingVoltage);
+        hood.goToAngle(targetAngle.get());
     }
 
-    // @Override
-    // public boolean isFinished() {
-    //    // return hood.atHomePosition();
-    // }
+    @Override
+    public boolean isFinished() {
+       boolean atTargetAngle = Math.abs(hood.getAngle().in(Degrees) - targetAngle.get().in(Degrees)) < HoodConstants.kToleranceAngle.in(Degrees);
+       return atTargetAngle;
+    }
 
     @Override
     public void end(boolean interrupted) {

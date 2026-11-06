@@ -11,7 +11,7 @@ import frc.robot.subsystems.hood.HoodConstants;
 public class HomeHood extends Command{
     Hood hood;
 
-    public void homeHood(Hood hood) {
+    public HomeHood(Hood hood) {
         this.hood = hood;
         addRequirements(hood);
     }
@@ -26,15 +26,14 @@ public class HomeHood extends Command{
         hood.setVoltage(HoodConstants.kHomingVoltage);
     }
 
-    // @Override
-    // public boolean isFinished() {
-    //    // return hood.atHomePosition();
-    // }
+    @Override
+    public boolean isFinished() {
+       return hood.atHomedPosition();
+    }
 
     @Override
     public void end(boolean interrupted) {
        // hood.zeroEncoder();
         hood.setVoltage(Volts.of(0));
     }
-
 }

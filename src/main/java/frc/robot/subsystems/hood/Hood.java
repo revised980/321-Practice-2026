@@ -31,7 +31,7 @@ public class Hood extends SubsystemBase{
     private double kS = 0;
     private double kG = 0;
     private double kV = 0;
-      
+
     private ArmFeedforward hoodFeedforward = new ArmFeedforward(kS, kG, kV);
 
     TalonFX hoodMotor = new TalonFX(HoodConstants.kHoodMotorID);    
@@ -82,8 +82,8 @@ public class Hood extends SubsystemBase{
         hoodMotor.setVoltage(desiredVoltage.in(Volts));
     }
 
-    public void setTargetAngle(Supplier<Angle> angle) {
-        this.angle = targetAngle;
+    public void setTargetAngle(Angle angle) {
+        this.targetAngle = angle;
     }
 
     @Logged(name = "hoodPitch")
@@ -108,6 +108,11 @@ public class Hood extends SubsystemBase{
     public Current getCurrent() {
         Current statorCurrent = hoodMotor.getStatorCurrent().getValue();
         return statorCurrent;
+    }
+
+    @Logged(name = "atHomedAngle")
+    public boolean atHomedPosition() {
+        return false;
     }
 
     // @Logged(name = "atHomeAngle")
