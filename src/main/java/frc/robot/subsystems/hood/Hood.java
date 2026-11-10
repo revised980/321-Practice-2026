@@ -85,7 +85,7 @@ public class Hood extends SubsystemBase{
     public void setTargetAngle(Angle angle) {
         this.targetAngle = angle;
     }
-
+    
     @Logged(name = "hoodPitch")
     public Angle getAngle() {
         Angle angle = hoodMotor.getPosition().getValue();
